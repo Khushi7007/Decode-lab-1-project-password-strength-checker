@@ -29,12 +29,10 @@ python app.py
 
 Open:
 ```
-http://127.0.0.1:5000
+http://127.0.0.1:5002
 ```
 
-## 📸 Screenshot
 
-_Add your project screenshot here._
 
 ## 👩‍💻 Author
 
