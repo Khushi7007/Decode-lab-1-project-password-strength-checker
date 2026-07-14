@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Strength Checker</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        input{
+            width:300px;
+            padding:10px;
+            font-size:18px;
+        }
+
+        button{
+            padding:10px 20px;
+            font-size:16px;
+            margin-top:15px;
+            cursor:pointer;
+        }
+
+        .progress{
+            width:300px;
+            height:18px;
+            background:#ddd;
+            margin:20px auto;
+            border-radius:10px;
+        }
+
+        .bar{
+            height:100%;
+            width:0%;
+            border-radius:10px;
+            transition:0.3s;
+        }
+
+        #text{
+            font-weight:bold;
+            font-size:20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Password Strength Checker</h1>
+
+<form method="POST">
+
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter Password"
+        onkeyup="checkStrength()"
+        required>
+
+    <br>
+
+    <div class="progress">
+        <div class="bar" id="bar"></div>
+    </div>
+
+    <p id="text"></p>
+
+    <button type="submit">Check Password</button>
+
+</form>
+
+{% if result %}
+<h2>Password Strength : {{ result }}</h2>
+<h3>Entropy : {{ entropy }} bits</h3>
+{% endif %}
+
+<script>
+
+function checkStrength(){
+
+    let password=document.getElementById("password").value;
+
+    let score=0;
+
+    if(password.length>=8) score++;
+    if(/[A-Z]/.test(password)) score++;
+    if(/[a-z]/.test(password)) score++;
+    if(/[0-9]/.test(password)) score++;
+    if(/[!@#$%^&*(),.?":{}|<>]/.test(password)) score++;
+
+    let bar=document.getElementById("bar");
+    let text=document.getElementById("text");
+
+    if(score<=2){
+        bar.style.width="33%";
+        bar.style.background="red";
+        text.innerHTML="Weak";
+        text.style.color="red";
+    }
+
+    else if(score<=4){
+        bar.style.width="66%";
+        bar.style.background="orange";
+        text.innerHTML="Medium";
+        text.style.color="orange";
+    }
+
+    else{
+        bar.style.width="100%";
+        bar.style.background="green";
+        text.innerHTML="Strong";
+        text.style.color="green";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
